@@ -1,404 +1,411 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberSec Portfolio</title>
+    <title>Project Web - Kelompok Kami</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Courier New', monospace;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #0a0e27;
-            color: #00ff41;
+            color: #fff;
             overflow-x: hidden;
         }
-
-        .matrix-bg {
+        
+        .particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.1;
+            opacity: 0.3;
         }
-
-        .container {
+        
+        .particle {
+            position: absolute;
+            background: #00d4ff;
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(100px); }
+            75% { transform: translateY(-150px) translateX(-50px); }
+        }
+        
+        .content-wrapper {
             position: relative;
             z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            padding: 60px 0;
         }
-
-        header {
+        
+        .hero {
             text-align: center;
-            padding: 40px 0;
-            border-bottom: 2px solid #00ff41;
-            margin-bottom: 40px;
+            margin-bottom: 80px;
+            padding: 40px 20px;
         }
-
-        .glitch {
-            font-size: 3em;
-            font-weight: bold;
-            text-transform: uppercase;
+        
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: slideDown 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            color: #8b92b8;
+            animation: slideDown 1.2s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .project-box {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
-                         0.025em 0.04em 0 #fffc00;
-            animation: glitch 725ms infinite;
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
         }
-
-        @keyframes glitch {
-            0% {
-                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
-                             0.025em 0.04em 0 #fffc00;
-            }
-            15% {
-                text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
-                             0.025em 0.04em 0 #fffc00;
-            }
-            16% {
-                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
-                             -0.05em -0.05em 0 #fffc00;
-            }
-            49% {
-                text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
-                             -0.05em -0.05em 0 #fffc00;
-            }
-            50% {
-                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
-                             0 -0.04em 0 #fffc00;
-            }
-            99% {
-                text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
-                             0 -0.04em 0 #fffc00;
-            }
-            100% {
-                text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
-                             -0.04em -0.025em 0 #fffc00;
+        
+        .project-box:nth-child(1) { animation-delay: 0.1s; }
+        .project-box:nth-child(2) { animation-delay: 0.2s; }
+        .project-box:nth-child(3) { animation-delay: 0.3s; }
+        .project-box:nth-child(4) { animation-delay: 0.4s; }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
             }
         }
-
-        .terminal {
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #00ff41;
-            border-radius: 5px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        
+        .project-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            transform: scaleX(0);
+            transition: transform 0.4s;
         }
-
-        .terminal-header {
-            color: #00ff41;
-            margin-bottom: 15px;
-            font-size: 1.2em;
+        
+        .project-box:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .project-box:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        }
+        
+        .project-header {
+            padding: 40px;
             display: flex;
             align-items: center;
+            gap: 30px;
         }
-
-        .terminal-header::before {
-            content: '> ';
-            color: #ff0000;
-            margin-right: 5px;
+        
+        .project-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.3;
+            line-height: 1;
         }
-
-        .typing {
-            overflow: hidden;
-            border-right: 0.15em solid #00ff41;
-            white-space: nowrap;
-            animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+        
+        .project-info {
+            flex: 1;
         }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        
+        .project-info h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
         }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #00ff41 }
+        
+        .project-info .category {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #00d4ff;
+            font-weight: 600;
         }
-
-        .skill-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
+        
+        .project-body {
+            padding: 0 40px 30px;
         }
-
-        .skill-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff41;
-            padding: 20px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+        
+        .project-body p {
+            color: #8b92b8;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+        
+        .team-members {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        
+        .member-tag {
+            padding: 8px 16px;
+            background: rgba(123, 47, 247, 0.1);
+            border: 1px solid rgba(123, 47, 247, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #b794f6;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .visit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
             cursor: pointer;
         }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.5);
-            border-color: #00fffc;
+        
+        .visit-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
+            color: #fff;
         }
-
-        .skill-card h3 {
-            color: #00fffc;
-            margin-bottom: 10px;
+        
+        .visit-btn i {
+            transition: transform 0.3s;
         }
-
-        .progress-bar {
-            background: #1a1a2e;
-            height: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-            overflow: hidden;
+        
+        .visit-btn:hover i {
+            transform: translateX(5px);
         }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #00ff41, #00fffc);
-            animation: progress 2s ease-out;
-        }
-
-        @keyframes progress {
-            from { width: 0 }
-        }
-
-        .project {
-            background: rgba(0, 0, 0, 0.8);
-            border-left: 4px solid #ff0000;
-            padding: 20px;
-            margin: 20px 0;
-            transition: all 0.3s ease;
-        }
-
-        .project:hover {
-            border-left-color: #00ff41;
-            transform: translateX(10px);
-        }
-
-        .project h3 {
-            color: #ff0000;
-            margin-bottom: 10px;
-        }
-
-        .project:hover h3 {
-            color: #00ff41;
-        }
-
-        .contact-btn {
-            display: inline-block;
-            background: transparent;
-            color: #00ff41;
-            border: 2px solid #00ff41;
-            padding: 15px 30px;
-            text-decoration: none;
-            margin: 10px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .contact-btn:hover {
-            background: #00ff41;
-            color: #0a0e27;
-            box-shadow: 0 0 20px #00ff41;
-        }
-
-        .ascii-art {
-            font-size: 0.6em;
-            color: #00ff41;
+        
+        .footer {
             text-align: center;
-            line-height: 1.2;
-            opacity: 0.5;
+            padding: 60px 20px 40px;
+            color: #8b92b8;
         }
-
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            border-top: 2px solid #00ff41;
-            margin-top: 40px;
+        
+        .footer-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            margin-bottom: 30px;
         }
     </style>
 </head>
 <body>
-    <canvas class="matrix-bg" id="matrix"></canvas>
+    <div class="particles" id="particles"></div>
     
-    <div class="container">
-        <header>
-            <div class="ascii-art">
-   _____ __     ______  ___________  _____________________
-  / ___//\ \   / / __ )/  _/ __/ __ \/ ___/ ____/ ____/ __ \
-  \__ \  \ \ / / __  |/ // /_ / /_/ /\__ \ __/ / /   / / / /
- ___/ /   \ V / /_/ // //  __/ _, _/___/ / /___/ /___/ /_/ /
-/____/     \_/_____/___/_/ /_/ |_|/____/_____/\____/\____/
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="hero">
+                <h1>Our Projects</h1>
+                <p>Showcase Karya Mahasiswa Web Development 2025</p>
             </div>
-            <h1 class="glitch">CYBER_SEC</h1>
-            <p class="typing">root@security:~# Penetration Tester & Security Researcher</p>
-        </header>
-
-        <section class="terminal">
-            <div class="terminal-header">ABOUT.md</div>
-            <p>Cybersecurity professional specializing in penetration testing, vulnerability assessment, and ethical hacking. Passionate about finding security flaws before malicious actors do.</p>
-            <p style="margin-top: 10px;">Mission: Make the digital world more secure, one vulnerability at a time.</p>
-        </section>
-
-        <section class="terminal">
-            <div class="terminal-header">SKILLS.exe</div>
-            <div class="skill-grid">
-                <div class="skill-card">
-                    <h3>🔓 Penetration Testing</h3>
-                    <p>Web App, Network, Mobile</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 95%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3>🐛 Exploit Development</h3>
-                    <p>Buffer Overflow, RCE, XSS</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 88%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3>🔍 OSINT & Recon</h3>
-                    <p>Intelligence Gathering</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 92%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3>💻 Programming</h3>
-                    <p>Python, Bash, JavaScript</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 90%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3>🛡️ Threat Analysis</h3>
-                    <p>Malware Analysis, Forensics</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 85%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3>🔐 Cryptography</h3>
-                    <p>Encryption, Decryption</p>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 80%"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="terminal">
-            <div class="terminal-header">PROJECTS.log</div>
             
-            <div class="project">
-                <h3>[CLASSIFIED] Enterprise Network Penetration Test</h3>
-                <p>Conducted comprehensive security assessment for Fortune 500 company. Discovered and reported 37 vulnerabilities including critical RCE exploit.</p>
-                <p style="margin-top: 10px;"><strong>Tools:</strong> Metasploit, Burp Suite, Nmap, Custom Scripts</p>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-box">
+                    <div class="project-header">
+                        <div class="project-number">01</div>
+                        <div class="project-info">
+                            <h3>E-Commerce Platform</h3>
+                            <span class="category">Kelompok 1</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p>Platform toko online modern dengan sistem keranjang belanja, payment gateway, dan dashboard admin yang powerful untuk manajemen produk dan pesanan.</p>
+                        <div class="team-members">
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Ahmad Rizki
+                            </div>
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Budi Santoso
+                            </div>
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Citra Dewi
+                            </div>
+                        </div>
+                        <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
+                            Visit Project <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-box">
+                    <div class="project-header">
+                        <div class="project-number">02</div>
+                        <div class="project-info">
+                            <h3>Restaurant System</h3>
+                            <span class="category">Kelompok 2</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p>Sistem pemesanan restoran online dengan fitur menu digital interaktif, reservasi meja real-time, dan tracking pesanan untuk pengalaman dining yang seamless.</p>
+                        <div class="team-members">
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Deni Prasetyo
+                            </div>
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Eka Putri
+                            </div>
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Fitri Amelia
+                            </div>
+                        </div>
+                        <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
+                            Visit Project <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-box">
+                    <div class="project-header">
+                        <div class="project-number">03</div>
+                        <div class="project-info">
+                            <h3>Digital Library</h3>
+                            <span class="category">Kelompok 3</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p>Platform perpustakaan digital dengan sistem peminjaman buku elektronik, katalog lengkap, fitur pencarian advanced, dan dashboard admin untuk manajemen koleksi.</p>
+                        <div class="team-members">
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Gita Maharani
+                            </div>
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Hadi Wijaya
+                            </div>
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Ika Sari
+                            </div>
+                        </div>
+                        <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
+                            Visit Project <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-box">
+                    <div class="project-header">
+                        <div class="project-number">04</div>
+                        <div class="project-info">
+                            <h3>Health Clinic System</h3>
+                            <span class="category">Kelompok 4</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p>Sistem manajemen klinik kesehatan terintegrasi dengan fitur pendaftaran pasien online, jadwal dokter, rekam medis elektronik, dan sistem appointment yang efisien.</p>
+                        <div class="team-members">
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Joko Susilo
+                            </div>
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Kartika Sari
+                            </div>
+                            <div class="member-tag">
+                                <i class="fas fa-user-circle"></i> Lina Marlina
+                            </div>
+                        </div>
+                        <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
+                            Visit Project <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-
-            <div class="project">
-                <h3>[OPEN-SOURCE] VulnScanner v2.0</h3>
-                <p>Developed automated vulnerability scanner with AI-powered detection. Scans web applications for OWASP Top 10 vulnerabilities.</p>
-                <p style="margin-top: 10px;"><strong>Stack:</strong> Python, TensorFlow, SQLite</p>
+            
+            <div class="footer">
+                <div class="footer-line"></div>
+                <p><i class="fas fa-graduation-cap"></i> Web Development Course Project 2025</p>
             </div>
-
-            <div class="project">
-                <h3>[BUG BOUNTY] Critical 0-Day Discovery</h3>
-                <p>Found and responsibly disclosed critical authentication bypass in major social media platform. Awarded $15,000 bounty.</p>
-                <p style="margin-top: 10px;"><strong>Impact:</strong> 500M+ users protected</p>
-            </div>
-
-            <div class="project">
-                <h3>[CTF] DEF CON Championship</h3>
-                <p>Ranked top 5% in DEF CON CTF competition. Specialized in web exploitation and cryptography challenges.</p>
-                <p style="margin-top: 10px;"><strong>Achievement:</strong> 45 flags captured</p>
-            </div>
-        </section>
-
-        <section class="terminal">
-            <div class="terminal-header">CERTIFICATIONS.cert</div>
-            <p>✓ Offensive Security Certified Professional (OSCP)</p>
-            <p>✓ Certified Ethical Hacker (CEH)</p>
-            <p>✓ CompTIA Security+</p>
-            <p>✓ GIAC Penetration Tester (GPEN)</p>
-        </section>
-
-        <section class="terminal" style="text-align: center;">
-            <div class="terminal-header">CONNECT.sh</div>
-            <a href="#" class="contact-btn">GitHub</a>
-            <a href="#" class="contact-btn">LinkedIn</a>
-            <a href="#" class="contact-btn">Twitter</a>
-            <a href="#" class="contact-btn">Email</a>
-        </section>
-
-        <footer>
-            <p>© 2025 | Stay Secure, Stay Anonymous</p>
-            <p style="font-size: 0.8em; margin-top: 10px; opacity: 0.7;">
-                "In a world of locked doors, the man with the key is king."
-            </p>
-        </footer>
+        </div>
     </div>
-
+    
     <script>
-        // Matrix Rain Effect
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = [];
-
-        for (let i = 0; i < columns; i++) {
-            drops[i] = 1;
+        // Particle animation
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+            particlesContainer.appendChild(particle);
         }
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00ff41';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars[Math.floor(Math.random() * chars.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        setInterval(drawMatrix, 35);
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Interactive skill cards
-        document.querySelectorAll('.skill-card').forEach(card => {
-            card.addEventListener('click', () => {
-                card.style.borderColor = '#ff0000';
-                setTimeout(() => {
-                    card.style.borderColor = '#00ff41';
-                }, 200);
-            });
-        });
     </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
