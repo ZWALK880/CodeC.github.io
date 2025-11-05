@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Web - Kelompok Kami</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css  " rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css  ">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -54,23 +54,47 @@
             text-align: center;
             margin-bottom: 80px;
             padding: 40px 20px;
+            position: relative;
         }
 
         .hero h1 {
-            font-size: 3rem; /* Ukuran lebih kecil untuk mobile */
+            font-size: 3rem;
             font-weight: 900;
             background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 20px;
-            animation: slideDown 1s ease-out;
+            animation: slideDown 1s ease-out, glow 3s ease-in-out infinite;
         }
 
         .hero p {
-            font-size: 1.1rem; /* Ukuran lebih kecil untuk mobile */
+            font-size: 1.1rem;
             color: #8b92b8;
             animation: slideDown 1.2s ease-out;
+        }
+
+        .hero-accent {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(0,212,255,0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(123,47,247,0.8)); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
         }
 
         @media (min-width: 768px) {
@@ -95,16 +119,16 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: 1fr; /* Satu kolom untuk mobile */
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: 60px;
             padding: 0 20px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
             .projects-grid {
-                grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* Lebih dari satu kolom untuk tablet+ */
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -149,20 +173,80 @@
         }
 
         .project-box:hover {
-            transform: translateY(-8px);
+            transform: translateY(-12px) scale(1.02);
             border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 25px 70px rgba(0, 212, 255, 0.3);
+        }
+
+        .project-poster {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #1a1f3a 0%, #0f1729 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 24px 24px 0 0;
+            cursor: pointer;
+        }
+
+        .project-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-poster:hover img {
+            transform: scale(1.1);
+        }
+
+        .poster-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(10,14,39,0.7) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-poster:hover .poster-overlay {
+            opacity: 1;
+        }
+
+        .play-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 212, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            animation: playPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes playPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(0, 212, 255, 0.8); }
         }
 
         .project-header {
-            padding: 30px; /* Padding lebih kecil untuk mobile */
+            padding: 30px;
             display: flex;
-            align-items: flex-start; /* Agar rata atas */
-            gap: 20px; /* Gap lebih kecil */
+            align-items: flex-start;
+            gap: 20px;
         }
 
         .project-number {
-            font-size: 2.5rem; /* Ukuran lebih kecil untuk mobile */
+            font-size: 2.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
             -webkit-background-clip: text;
@@ -170,7 +254,7 @@
             background-clip: text;
             opacity: 0.3;
             line-height: 1;
-            flex-shrink: 0; /* Jangan ikut berubah ukurannya */
+            flex-shrink: 0;
         }
 
         .project-info {
@@ -178,10 +262,15 @@
         }
 
         .project-info h3 {
-            font-size: 1.5rem; /* Ukuran lebih kecil untuk mobile */
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 10px;
             color: #fff;
+            transition: color 0.3s;
+        }
+
+        .project-box:hover .project-info h3 {
+            color: #00d4ff;
         }
 
         @media (min-width: 768px) {
@@ -206,11 +295,17 @@
             font-size: 0.85rem;
             color: #00d4ff;
             font-weight: 600;
-            margin-top: 5px; /* Jarak dari judul */
+            margin-top: 5px;
+            transition: all 0.3s;
+        }
+
+        .project-box:hover .category {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateX(5px);
         }
 
         .project-body {
-            padding: 0 30px 30px; /* Padding lebih kecil untuk mobile */
+            padding: 0 30px 30px;
         }
 
         @media (min-width: 768px) {
@@ -223,7 +318,7 @@
             color: #8b92b8;
             line-height: 1.7;
             margin-bottom: 25px;
-            font-size: 0.95rem; /* Ukuran font lebih kecil */
+            font-size: 0.95rem;
         }
 
         .team-members {
@@ -238,48 +333,89 @@
             background: rgba(123, 47, 247, 0.1);
             border: 1px solid rgba(123, 47, 247, 0.2);
             border-radius: 20px;
-            font-size: 0.85rem; /* Ukuran font lebih kecil */
+            font-size: 0.85rem;
             color: #b794f6;
             display: flex;
             align-items: center;
             gap: 8px;
-            word-break: break-all; /* Ganti baris jika nama panjang */
-            max-width: 100%; /* Jangan melebihi lebar parent */
+            word-break: break-all;
+            max-width: 100%;
+            transition: all 0.3s;
         }
 
-        .visit-btn {
+        .member-tag:hover {
+            background: rgba(123, 47, 247, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(123, 47, 247, 0.3);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .visit-btn, .video-btn {
+            flex: 1;
+            min-width: 140px;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            padding: 12px 28px; /* Ukuran tombol lebih kecil */
-            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            padding: 12px 24px;
             border: none;
             border-radius: 12px;
             color: #fff;
             font-weight: 600;
-            font-size: 0.95rem; /* Ukuran font lebih kecil */
+            font-size: 0.95rem;
             text-decoration: none;
             transition: all 0.3s;
             cursor: pointer;
-            width: 100%; /* Tombol full width di mobile */
-            justify-content: center; /* Tengahkan isi tombol */
+            position: relative;
+            overflow: hidden;
         }
 
-        @media (min-width: 768px) {
-            .visit-btn {
-                padding: 14px 32px;
-                font-size: 1rem;
-                width: auto; /* Kembali ke ukuran otomatis di desktop */
-            }
+        .visit-btn {
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+        }
+
+        .video-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .visit-btn::before, .video-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .visit-btn:hover::before, .video-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .visit-btn:hover {
-            transform: translateX(5px);
+            transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
-            color: #fff;
         }
 
-        .visit-btn i {
+        .video-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .visit-btn i, .video-btn i {
+            position: relative;
+            z-index: 1;
             transition: transform 0.3s;
         }
 
@@ -287,16 +423,137 @@
             transform: translateX(5px);
         }
 
+        .video-btn:hover i {
+            transform: scale(1.2);
+        }
+
+        @media (min-width: 768px) {
+            .visit-btn, .video-btn {
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 900px;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #00d4ff;
+            transform: rotate(90deg);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         .footer {
             text-align: center;
-            padding: 40px 20px 40px; /* Padding lebih kecil */
+            padding: 40px 20px 40px;
             color: #8b92b8;
+            margin-top: 60px;
         }
 
         .footer-line {
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
             margin-bottom: 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2ff7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6);
         }
     </style>
 </head>
@@ -306,13 +563,22 @@
     <div class="content-wrapper">
         <div class="container">
             <div class="hero">
+                <div class="hero-accent"></div>
                 <h1>Our Projects</h1>
-                <p>Showcase Karya Mahasiswa Web Development 2025</p>
+                <p>Showcase Karya Mahasiswa Teknik Informatika 24</p>
             </div>
 
             <div class="projects-grid">
                 <!-- Project 1 - CodePlay -->
                 <div class="project-box">
+                    <div class="project-poster" onclick="openVideo('modal1')">
+                        <img src="https://via.placeholder.com/800x400/1a1f3a/00d4ff?text=CodePlay+Poster" alt="CodePlay Poster">
+                        <div class="poster-overlay">
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="project-header">
                         <div class="project-number">01</div>
                         <div class="project-info">
@@ -339,14 +605,27 @@
                                 <i class="fas fa-user-circle"></i> Abdillah Aziz Putra Susan
                             </div>
                         </div>
-                        <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
-                            Visit Project <i class="fas fa-arrow-right"></i>
-                        </a>
+                        <div class="action-buttons">
+                            <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
+                                <span>Visit Project</span> <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <button class="video-btn" onclick="openVideo('modal1')">
+                                <span>Watch Video</span> <i class="fas fa-play-circle"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Project 2 - Neo Blue -->
                 <div class="project-box">
+                    <div class="project-poster" onclick="openVideo('modal2')">
+                        <img src="https://via.placeholder.com/800x400/1a1f3a/7b2ff7?text=Neo+Blue+Poster" alt="Neo Blue Poster">
+                        <div class="poster-overlay">
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="project-header">
                         <div class="project-number">02</div>
                         <div class="project-info">
@@ -376,14 +655,27 @@
                                 <i class="fas fa-user-circle"></i> Alviansyah Nurhidayat Yahya
                             </div>
                         </div>
-                        <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
-                            Visit Project <i class="fas fa-arrow-right"></i>
-                        </a>
+                        <div class="action-buttons">
+                            <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
+                                <span>Visit Project</span> <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <button class="video-btn" onclick="openVideo('modal2')">
+                                <span>Watch Video</span> <i class="fas fa-play-circle"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Project 3 - Lakoni Aja -->
                 <div class="project-box">
+                    <div class="project-poster" onclick="openVideo('modal3')">
+                        <img src="https://via.placeholder.com/800x400/1a1f3a/00d4ff?text=Lakoni+Aja+Poster" alt="Lakoni Aja Poster">
+                        <div class="poster-overlay">
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="project-header">
                         <div class="project-number">03</div>
                         <div class="project-info">
@@ -413,14 +705,27 @@
                                 <i class="fas fa-user-circle"></i> Raffin Tiano Adzani
                             </div>
                         </div>
-                        <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
-                            Visit Project <i class="fas fa-arrow-right"></i>
-                        </a>
+                        <div class="action-buttons">
+                            <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
+                                <span>Visit Project</span> <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <button class="video-btn" onclick="openVideo('modal3')">
+                                <span>Watch Video</span> <i class="fas fa-play-circle"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Project 4 - Myormawa -->
                 <div class="project-box">
+                    <div class="project-poster" onclick="openVideo('modal4')">
+                        <img src="https://via.placeholder.com/800x400/1a1f3a/7b2ff7?text=Myormawa+Poster" alt="Myormawa Poster">
+                        <div class="poster-overlay">
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    </div>
                     <div class="project-header">
                         <div class="project-number">04</div>
                         <div class="project-info">
@@ -450,37 +755,53 @@
                                 <i class="fas fa-user-circle"></i> Lisa Rahmawati Putri
                             </div>
                         </div>
-                        <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
-                            Visit Project <i class="fas fa-arrow-right"></i>
-                        </a>
+                        <div class="action-buttons">
+                            <a href="#" class="visit-btn" onclick="alert('Ganti # dengan URL project Anda'); return false;">
+                                <span>Visit Project</span> <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <button class="video-btn" onclick="openVideo('modal4')">
+                                <span>Watch Video</span> <i class="fas fa-play-circle"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="footer">
                 <div class="footer-line"></div>
-                <p><i class="fas fa-graduation-cap"></i> Web Development Course Project 2025</p>
+                <div class="footer-content">
+                    <i class="fas fa-graduation-cap footer-icon"></i>
+                    <p>Web Development Course Project 2025</p>
+                    <p style="font-size: 0.9rem; opacity: 0.7;">Built with passion and innovation</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Particle animation
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            const size = Math.random() * 4 + 2;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 20 + 's';
-            particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
-            particlesContainer.appendChild(particle);
-        }
-    </script>
+    <!-- Video Modals -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeVideo('modal1')">&times;</span>
+            <div class="video-container">
+                <iframe id="video1" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js  "></script>
-</body>
-</html>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeVideo('modal2')">&times;</span>
+            <div class="video-container">
+                <iframe id="video2" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeVideo('modal3')">&times;</span>
+            <div class="video-container">
+                <iframe id="video3" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
